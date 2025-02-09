@@ -23,7 +23,9 @@ function Login() {
       );
 
       if (response.ok) {
-        navigate("/search");
+        const data = await response.json();
+        localStorage.setItem("accessToken", data.accessToken);
+        navigate("/");
       } else {
         setError("Invalid username or password.");
       }

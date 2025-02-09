@@ -1,20 +1,32 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Login from "./components/Login";
-import SearchTrack from "./components/SearchTrack";
-import TrackInfo from "./components/TrackInfo";
+import TrackPage from "./components/TrackPage";
 
-function App() {
+import { Navigate, Outlet } from "react-router-dom";
+
+interface ProtectedRouteProps {
+  isAuthenticated: boolean;
+}
+
+const ProtectedRoute = ({ isAuthenticated }: ProtectedRouteProps) => {
+  return isAuthenticated ? <Outlet /> : <Navigate to="/login" replace />;
+};
+
+const App = () => {
+  const isAuthenticated = !!localStorage.getItem("accessToken");
+
   return (
     <Router>
-      <h1> Track App</h1>
       <Routes>
-        <Route path="" element={<Login />} />
-        <Route path="/search" element={<SearchTrack />} />
-        <Route path="/track/:irsc" element={<TrackInfo />} />
+        <Route path="/login" element={<Login />} />
+        <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
+          <Route path="/" element={<TrackPage />} />
+          <Route path="/track/:isrc" element={<TrackPage />} />
+        </Route>
       </Routes>
     </Router>
   );
-}
+};
 
 export default App;
