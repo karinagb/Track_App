@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface iTrack {
   name: string;
@@ -14,19 +14,10 @@ function TrackPage() {
   const [error, setError] = useState("");
   const [isrc, setIsrc] = useState("");
   const [isrcFound, setIsrcFound] = useState(true);
-  const [fetchMethod, setFetchMethod] = useState<"GET" | "POST">("GET");
   const [track, setTrack] = useState<iTrack | null>(null);
   const navigate = useNavigate();
-  const { isrc: urlIsrc } = useParams();
 
-  useEffect(() => {
-    if (urlIsrc) {
-      setIsrc(urlIsrc); 
-      trackData(urlIsrc);
-    }
-  }, [urlIsrc]);
-
-  const trackData = async (isrc: string) => {
+  const trackData = async (isrc: string, method:string) => {
     setError("");
 
     const token = localStorage.getItem("accessToken");
@@ -35,7 +26,7 @@ function TrackPage() {
       const response = await fetch(
         `https://spotify-be-b07j.onrender.com/spotify/track?isrc=${isrc}`,
         {
-          method: fetchMethod,
+          method: method,
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
@@ -46,23 +37,17 @@ function TrackPage() {
       if (response.status === 401) {
         console.warn("Token expired or invalid. Redirecting to login...");
         localStorage.removeItem("accessToken");
-        navigate("/login"); 
+        navigate("/login");
         return;
       }
-
       if (response.ok) {
         const data = await response.json();
-
-
 
         if (data.accessToken) {
           localStorage.setItem("accessToken", data.accessToken);
         }
-
-
-
         setTrack(data);
-        navigate(`/track/${isrc}`);
+
       } else {
         setError("Could not find the track. Do you want to add it?");
         setIsrcFound(false);
@@ -73,16 +58,12 @@ function TrackPage() {
     }
   };
 
-
   const searchTrack = () => {
-    setFetchMethod("GET");
-    trackData(isrc);
+    trackData(isrc, 'GET');
   };
 
-
   const addTrack = () => {
-    setFetchMethod("POST");
-    trackData(isrc);
+    trackData(isrc, 'POST');
   };
 
   return (

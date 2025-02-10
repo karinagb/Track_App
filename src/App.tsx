@@ -22,7 +22,6 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
           <Route path="/" element={<TrackPage />} />
-          <Route path="/track/:isrc" element={<TrackPage />} />
         </Route>
       </Routes>
     </Router>
