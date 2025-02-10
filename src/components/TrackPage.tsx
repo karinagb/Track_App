@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 interface iTrack {
   name: string;
@@ -15,14 +15,19 @@ function TrackPage() {
   const [isrc, setIsrc] = useState("");
   const [isrcFound, setIsrcFound] = useState(true);
   const [fetchMethod, setFetchMethod] = useState<"GET" | "POST">("GET");
-  const [hasSearched, setHasSearched] = useState(false);
   const [track, setTrack] = useState<iTrack | null>(null);
-const navigate = useNavigate();
+  const navigate = useNavigate();
+  const { isrc: urlIsrc } = useParams();
 
-  const trackSearch = async () => {
+  useEffect(() => {
+    if (urlIsrc) {
+      setIsrc(urlIsrc); 
+      trackData(urlIsrc);
+    }
+  }, [urlIsrc]);
+
+  const trackData = async (isrc: string) => {
     setError("");
-    setHasSearched(true); 
-    setFetchMethod("GET");
 
     const token = localStorage.getItem("accessToken");
 
@@ -38,9 +43,24 @@ const navigate = useNavigate();
         }
       );
 
+      if (response.status === 401) {
+        console.warn("Token expired or invalid. Redirecting to login...");
+        localStorage.removeItem("accessToken");
+        navigate("/login"); 
+        return;
+      }
+
       if (response.ok) {
         const data = await response.json();
-        localStorage.setItem("accessToken", data.accessToken);
+
+
+
+        if (data.accessToken) {
+          localStorage.setItem("accessToken", data.accessToken);
+        }
+
+
+
         setTrack(data);
         navigate(`/track/${isrc}`);
       } else {
@@ -53,6 +73,18 @@ const navigate = useNavigate();
     }
   };
 
+
+  const searchTrack = () => {
+    setFetchMethod("GET");
+    trackData(isrc);
+  };
+
+
+  const addTrack = () => {
+    setFetchMethod("POST");
+    trackData(isrc);
+  };
+
   return (
     <>
       <h2>Search Track</h2>
@@ -62,8 +94,8 @@ const navigate = useNavigate();
         value={isrc}
         onChange={(event) => setIsrc(event.target.value)}
       />
+      <button onClick={searchTrack}>Search Track</button>
 
-      <button onClick={trackSearch} >Search Track</button>
       {isrcFound && track ? (
         <>
           <h2>Track Info</h2>
@@ -82,9 +114,7 @@ const navigate = useNavigate();
       ) : (
         <>
           {error && <p>{error}</p>}
-          {hasSearched && !track && !isrcFound && (
-            <button onClick={() => setFetchMethod("POST")}>Add Track</button>
-          )}
+          {!isrcFound && <button onClick={addTrack}>Add Track</button>}
         </>
       )}
     </>
