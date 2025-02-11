@@ -1,4 +1,4 @@
-import NavBar from "../components/NavBar";
+import Header from "../components/Header";
 import { useFetchTrack } from "../components/FetchTrack";
 
 function Add() {
@@ -10,7 +10,7 @@ function Add() {
 
   return (
     <>
-      <NavBar />
+      <Header />
       <h1>Add</h1>
       <input
         type="text"

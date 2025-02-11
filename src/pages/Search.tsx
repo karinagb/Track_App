@@ -1,4 +1,4 @@
-import NavBar from "../components/NavBar";
+import Header from "../components/Header";
 import { useFetchTrack } from "../components/FetchTrack";
 import { useNavigate } from "react-router-dom";
 
@@ -15,7 +15,7 @@ console.log('track', track)
 
   return (
     <>
-      <NavBar />
+      <Header />
       <h2>Search</h2>{" "}
       <input
         type="text"
