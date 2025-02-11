@@ -1,7 +1,10 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
-import Login from "./components/Login";
-import TrackPage from "./components/TrackPage";
+import Home from './pages/Home'
+import Login from "./pages/Login";
+import Search from './pages/Search'
+import Add from './pages/Add'
+
 
 import { Navigate, Outlet } from "react-router-dom";
 
@@ -21,7 +24,9 @@ const App = () => {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
-          <Route path="/" element={<TrackPage />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/Search" element={<Search />} />
+          <Route path="/Add" element={<Add />} />
         </Route>
       </Routes>
     </Router>
