@@ -1,10 +1,10 @@
 import Header from "../components/Header";
 import { useFetchTrack } from "../components/FetchTrack";
-import { useNavigate } from "react-router-dom";
+import { TrackInfo } from "../components/TrackInfo";
+import { Loading } from "../components/Loading";
 
 function Add() {
-  const { trackData, isrc, setIsrc, error, track } = useFetchTrack();
-  const navigate = useNavigate();
+  const { trackData, isrc, setIsrc, error, track, loading } = useFetchTrack();
   const addTrack = () => {
     trackData(isrc, "POST");
   };
@@ -28,18 +28,16 @@ function Add() {
             Add Track
           </button>
         </div>
-        {track ? (
+        {loading && <Loading />}
+        {track && (
           <div className="mt-6 bg-gray-900 p-6 rounded-lg shadow-lg text-center">
             <p className="text-green-400 text-lg font-semibold">
               Track added successfully!
             </p>
-            <button
-              onClick={() => navigate("/search")}
-              className="mt-4 px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-400 transition">
-              Go to Search
-            </button>
+            <TrackInfo track={track} />
           </div>
-        ) : (
+        )}
+        {error && (
           <div>{error && <p className="mt-4 text-red-500">{error}</p>} </div>
         )}
       </div>

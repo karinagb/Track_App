@@ -15,10 +15,12 @@ export function useFetchTrack() {
   const [error, setError] = useState("");
   const [isrc, setIsrc] = useState("");
   const [track, setTrack] = useState<iTrack | null>(null);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const trackData = async (isrc: string, method: string) => {
     setError("");
+    setLoading(true);
 
     const token = localStorage.getItem("accessToken");
 
@@ -39,6 +41,7 @@ export function useFetchTrack() {
           localStorage.setItem("accessToken", data.accessToken);
         }
         setTrack(data);
+        setLoading(false);
         return;
       }
       if (response.status === 401) {
@@ -54,18 +57,22 @@ export function useFetchTrack() {
         const errorData = await response.json();
         setError(errorData.message);
         setTrack(null);
+        setLoading(false);
       } else {
         setError("Could not find the track. Do you want to add it?");
         setTrack(null);
+        setLoading(false);
       }
     } catch (error) {
       console.log("Fetch error:", error);
       setError("Something went wrong. Please try again.");
       setTrack(null);
+      setLoading(false);
+
     }
   };
 
-  return { trackData, isrc, setIsrc, track, error };
+  return { trackData, isrc, setIsrc, track, error, loading };
 }
 
 export default useFetchTrack;

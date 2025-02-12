@@ -1,14 +1,17 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Loading } from "../components/Loading";
 
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleLogin = async () => {
     setError("");
+    setLoading(true)
 
     try {
       const response = await fetch(
@@ -26,12 +29,15 @@ function Login() {
         const data = await response.json();
         localStorage.setItem("accessToken", data.accessToken);
         navigate("/");
+        setLoading(false);
       } else {
         setError("Invalid username or password.");
+        setLoading(false);
       }
     } catch (error) {
       console.error("Fetch error:", error);
       setError("Something went wrong. Please try again.");
+      setLoading(false);
     }
   };
 
@@ -60,6 +66,7 @@ function Login() {
           className="mt-6 w-full bg-green-500 text-black font-semibold py-3 rounded-lg hover:bg-green-400 transition">
           Login
         </button>
+        {loading && <Loading />}
         {error && <p className="mt-3 text-red-500 text-center">{error}</p>}
       </div>
     </div>
