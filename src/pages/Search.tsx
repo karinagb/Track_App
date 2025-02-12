@@ -59,7 +59,7 @@ function Search() {
 
             {!track && (
               <button
-                onClick={() => navigate("/Add")}
+                onClick={() => navigate("/add")}
                 className="mt-4 px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-400 transition">
                 Add Track
               </button>

@@ -19,12 +19,12 @@ function NavBar() {
             isOpen ? "block" : "hidden"
           }`}>
           <button
-            onClick={() => navigate("/Search")}
+            onClick={() => navigate("/search")}
             className="block md:inline hover:text-green-400 transition">
             Search
           </button>
           <button
-            onClick={() => navigate("/Add")}
+            onClick={() => navigate("/add")}
             className="block md:inline hover:text-green-400 transition">
             Add
           </button>
