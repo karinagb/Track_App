@@ -26,7 +26,7 @@ function Search() {
           />
           <button
             onClick={searchTrack}
-            className="px-4 py-3 bg-green-500 text-black font-semibold rounded-lg hover:bg-green-400 transition">
+            className="inline-flex whitespace-nowrap px-4 py-3 bg-green-500 text-black font-semibold rounded-lg hover:bg-green-400 transition">
             Search Track
           </button>
         </div>

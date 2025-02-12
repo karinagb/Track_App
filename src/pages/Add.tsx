@@ -24,7 +24,7 @@ function Add() {
           />
           <button
             onClick={addTrack}
-            className="px-4 py-3 bg-green-500 text-black font-semibold rounded-lg hover:bg-green-400 transition">
+            className="inline-flex whitespace-nowrap px-4 py-3 bg-green-500 text-black font-semibold rounded-lg hover:bg-green-400 transition">
             Add Track
           </button>
         </div>
