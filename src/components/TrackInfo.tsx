@@ -14,9 +14,9 @@ interface iProps {
 
 export function TrackInfo({track}: iProps) {
   return (
-    <div className="mt-8 bg-gray-900 p-6 rounded-lg shadow-lg w-full max-w-lg">
+    <div className="mt-8 bg-gray-900 p-10 rounded-lg shadow-lg w-auto max-w-lg text-start">
       <h2 className="text-2xl font-semibold text-green-400 mb-4">Track Info</h2>
-      <ul className="space-y-2">
+      <ul className="space-y-3">
         <li>{`Track Name: ${track.name}`}</li>
         <li>{`Artist Name: ${track.artistName}`}</li>
         <li>{`Album Name: ${track.albumName}`}</li>

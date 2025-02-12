@@ -14,7 +14,7 @@ function Add() {
       <Header />
       <div className="flex flex-col items-center p-6">
         <h2 className="text-3xl font-bold text-green-500 mb-6">Add Track</h2>
-        <div className="flex items-center space-x-2 w-full max-w-md">
+        <div className="flex items-center space-x-2 w-auto max-w-md">
           <input
             type="text"
             placeholder="ISRC"
@@ -30,7 +30,7 @@ function Add() {
         </div>
         {loading && <Loading />}
         {track && (
-          <div className="mt-6 bg-gray-900 p-6 rounded-lg shadow-lg text-center">
+          <div className="mt-6 bg-gray-900 py-6 rounded-lg shadow-lg text-center">
             <p className="text-green-400 text-lg font-semibold">
               Track added successfully!
             </p>

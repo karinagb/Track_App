@@ -16,7 +16,7 @@ function Search() {
   return (
     <div className="min-h-screen bg-black text-white">
       <Header />
-      <div className="flex flex-col items-center p-6">
+      <div className="flex flex-col items-center p-6 ">
         <h2 className="text-3xl font-bold text-green-500 mb-6">Search</h2>
         <div className="flex items-center space-x-2 w-full max-w-md">
           <input
@@ -33,7 +33,7 @@ function Search() {
           </button>
         </div>
         {loading && <Loading />}
-        {track && <TrackInfo track={track} />}{" "}
+        {track && <TrackInfo track={track} />}
         {error && (
           <div className="mt-6 text-center">
             {error && <p className="text-red-500">{error}</p>}
