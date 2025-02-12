@@ -1,9 +1,10 @@
 import Header from "../components/Header";
 import { useFetchTrack } from "../components/FetchTrack";
+import { useNavigate } from "react-router-dom";
 
 function Add() {
-  const { trackData, isrc, setIsrc, error } = useFetchTrack();
-
+  const { trackData, isrc, setIsrc, error, track } = useFetchTrack();
+  const navigate = useNavigate();
   const addTrack = () => {
     trackData(isrc, "POST");
   };
@@ -27,7 +28,20 @@ function Add() {
             Add Track
           </button>
         </div>
-        {error && <p className="mt-4 text-red-500">{error}</p>}
+        {track ? (
+          <div className="mt-6 bg-gray-900 p-6 rounded-lg shadow-lg text-center">
+            <p className="text-green-400 text-lg font-semibold">
+              Track added successfully!
+            </p>
+            <button
+              onClick={() => navigate("/Search")}
+              className="mt-4 px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-400 transition">
+              Go to Search
+            </button>
+          </div>
+        ) : (
+          <div>{error && <p className="mt-4 text-red-500">{error}</p>} </div>
+        )}
       </div>
     </div>
   );

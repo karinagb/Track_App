@@ -35,7 +35,6 @@ export function useFetchTrack() {
       );
       if (response.ok) {
         const data = await response.json();
-console.log('data', data)
         if (data.accessToken) {
           localStorage.setItem("accessToken", data.accessToken);
         }
@@ -43,7 +42,6 @@ console.log('data', data)
         return;
       }
       if (response.status === 401) {
-        console.log("Token expired or invalid. Redirecting to login...");
         localStorage.removeItem("accessToken");
         navigate("/login");
         return;

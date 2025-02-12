@@ -12,7 +12,6 @@ function User() {
     navigate("/login");
   };
 
-  console.log("userData.name", userData.name);
   return (
     <div className="flex items-center space-x-4">
       <p className="text-white font-medium">Welcome, {userName}</p>

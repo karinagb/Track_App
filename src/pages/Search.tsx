@@ -6,7 +6,6 @@ function Search() {
   const navigate = useNavigate();
 
   const { trackData, isrc, setIsrc, track, error } = useFetchTrack();
-  console.log("track", track);
 
   const searchTrack = () => {
     trackData(isrc, "GET");

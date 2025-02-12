@@ -15,7 +15,6 @@ function NavBar() {
           <button
             onClick={() => navigate("/Add")}
             className="hover:text-green-400 transition">
-            {" "}
             Add
           </button>
         </div>
