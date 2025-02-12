@@ -13,11 +13,13 @@ function User() {
   };
 
   return (
-    <div className="flex items-center space-x-4">
-      <p className="text-white font-medium">Welcome, {userName}</p>
+    <div className="flex flex-row items-center space-x-2 md:space-x-4 md:space-y-0">
+      <p className="text-white font-medium text-center md:text-left">
+        Welcome, {userName}
+      </p>
       <button
-        onClick={() => logOut()}
-        className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-400 transition">
+        onClick={logOut}
+        className="px-3 py-1 text-xs md:px-6 md:py-2 md:text-base bg-red-500 text-white rounded-lg hover:bg-red-400 transition">
         Log Out
       </button>
     </div>
