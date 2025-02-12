@@ -36,25 +36,33 @@ function Login() {
   };
 
   return (
-    <>
-      <h2>Login</h2>
-      <input
-        type="text"
-        placeholder="Username"
-        required
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        required
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button onClick={handleLogin}>Login</button>
-      {error && <p>{error}</p>}
-    </>
+    <div className="flex min-h-screen items-center justify-center bg-black text-white">
+      <div className="bg-gray-900 p-8 rounded-lg shadow-lg w-full max-w-sm">
+        <h2 className="text-3xl font-bold text-green-500 text-center">Login</h2>
+        <input
+          type="text"
+          placeholder="Username"
+          required
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          className="mt-4 w-full p-3 bg-gray-800 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          required
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="mt-3 w-full p-3 bg-gray-800 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+        />
+        <button
+          onClick={handleLogin}
+          className="mt-6 w-full bg-green-500 text-black font-semibold py-3 rounded-lg hover:bg-green-400 transition">
+          Login
+        </button>
+        {error && <p className="mt-3 text-red-500 text-center">{error}</p>}
+      </div>
+    </div>
   );
 }
 

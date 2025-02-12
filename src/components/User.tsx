@@ -14,10 +14,14 @@ function User() {
 
   console.log("userData.name", userData.name);
   return (
-    <>
-      <p>Welcome {userName}</p>
-      <button onClick={() => logOut()}>Log Out</button>
-    </>
+    <div className="flex items-center space-x-4">
+      <p className="text-white font-medium">Welcome, {userName}</p>
+      <button
+        onClick={() => logOut()}
+        className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-400 transition">
+        Log Out
+      </button>
+    </div>
   );
 }
 

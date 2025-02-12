@@ -3,10 +3,10 @@ import User from "../components/User";
 
 function Header() {
   return (
-    <div className= 'flex row'>
-      <NavBar/>
-      <User/>
-    </div>
+    <header className="flex items-center justify-between bg-black p-4 text-white">
+      <NavBar />
+      <User />
+    </header>
   );
 }
 
